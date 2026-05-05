@@ -1,8 +1,13 @@
 # Whisper Transcription
 
-OpenAI Whisper を使った音声/動画ファイル文字起こし CLI ツール。
+OpenAI Whisper を使った音声/動画ファイル文字起こし CLI／GUI ツール。
+A speech-to-text transcription tool using OpenAI Whisper with CLI and GUI.
 
-## 必要条件
+[日本語](#日本語) | [English](#english)
+
+## 日本語
+
+### 必要条件
 
 - Python 3.10+
 - [ffmpeg](https://ffmpeg.org/) (動画ファイルを処理する場合)
@@ -169,6 +174,171 @@ CUDA 版 PyTorch を使う場合は以下のいずれかで導入してくださ
 
 - **ランチャーの Setup 機能**: 「Create Conda Env」から環境を作成後、「Install pip deps」で依存関係をインストール
 - **手動インストール**:
+  ```bash
+  conda create -n whisper-transcription python=3.11 -y
+  conda activate whisper-transcription
+  pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+  pip install openai-whisper
+  ```
+
+---
+
+## English
+
+OpenAI Whisper transcription tool with CLI and GUI.
+
+### Requirements
+
+- Python 3.10+
+- [ffmpeg](https://ffmpeg.org/) (for processing video files)
+
+### Installation
+
+```bash
+# CPU version (minimal)
+pip install -r requirements.txt
+
+# CUDA 12.4 (for GPU)
+pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+pip install openai-whisper
+```
+
+> **Note**: `torch` in `requirements.txt` installs the CPU version. Use the CUDA install steps above for GPU support. The launcher's Setup feature can also set up the environment.
+
+### Usage
+
+Place audio files in the `source/` directory.
+
+```bash
+# Auto-detect files in source/
+python transcribe.py
+
+# Specify a file in source/ by name
+python transcribe.py --input audio.mp3
+
+# Specify a file by full path
+python transcribe.py --input C:/music/speech.mp3
+
+# Japanese + medium model
+python transcribe.py --input audio.mp3 --language ja --model medium
+```
+
+### Options
+
+| Option | Default | Description |
+|---|---|---|
+| `--input`, `-i` | (auto) | Audio file. Auto-detects in `source/` if omitted |
+| `--language`, `-l` | `auto` | Language (`auto`, `ja`, `en`, `zh`, `fr`, `de`, `ko`, `es`, `it`, `pt`, `ru`) |
+| `--model`, `-m` | `large` | Model size (`tiny`, `small`, `medium`, `large`) |
+| `--output-dir`, `-o` | `./outputs` | Output directory |
+| `--device`, `-d` | `auto` | Device (`auto`, `cpu`, `cuda`). auto prefers CUDA |
+
+### Output Files
+
+Generated in the `outputs/` directory:
+
+- `{filename}.srt` — SubRip subtitle format
+- `{filename}.txt` — Plain text
+- `{filename}_with_timestamp.txt` — Timestamped text
+
+### GUI
+
+#### WhisperGUI.exe (Recommended)
+
+`WhisperGUI.exe` is a lightweight launcher that starts `gui.py` using your existing `whisper-transcription` Conda environment.
+
+**Important**: `WhisperGUI.exe` does **NOT bundle Python / Whisper / PyTorch**. The Conda environment `whisper-transcription` must already exist on the PC.
+
+**How to launch**:
+- Create a shortcut to `WhisperGUI.exe` on your desktop and double-click.
+- Unlike `.bat`, no command prompt or PowerShell window appears.
+
+**Launcher features**:
+- Auto-checks Conda environment, pythonw.exe, ffmpeg, and CUDA on startup
+- Skips checks for 7 days once everything passes (Recheck available anytime)
+- Setup panel appears only when components are missing
+- Check results and errors shown in the launcher's log area
+- Option to auto-close launcher after GUI starts (off by default)
+
+**Build**:
+```bash
+dotnet build WhisperGUILauncher/WhisperGUILauncher.csproj -c Release
+# Output: WhisperGUILauncher/bin/Release/net8.0-windows/WhisperGUI.exe
+```
+
+#### WhisperGUI.bat (Auxiliary)
+
+Use `.bat` for troubleshooting or if the Conda environment hasn't been set up yet.
+
+#### Command Line
+
+```bash
+conda activate whisper-transcription
+python gui.py
+```
+
+The GUI provides:
+
+- File dialog for audio/video selection with "Open" button for Explorer
+- Output folder selection with "Open" button
+- Confirmation dialog if output directory is not specified (uses input file's folder)
+- Language: auto / ja / en (default: en)
+- Model: tiny / small / medium / large (default: small)
+- Device: auto / cpu / cuda (default: auto)
+- Background thread processing (non-blocking UI)
+- Indeterminate progress bar + status display (loading → transcribing → saving → done)
+- Audio duration display (via ffprobe)
+- Cancel button (before/during model load, during save)
+- "Environment" button to check Python / Whisper / PyTorch / CUDA / FFmpeg status
+- Settings auto-saved to `user_settings.json` (general defaults in `gui_settings.json`)
+
+### Settings Files
+
+| File | Purpose | Git |
+|---|---|---|
+| `gui_settings.json` | General defaults (model, device, language) | Tracked |
+| `user_settings.json` | User-specific settings (paths, last used) | Ignored |
+| `launcher_settings.json` | Launcher settings (verification state) | Ignored |
+
+> **Migration**: Old `.gui_settings.json` (with leading dot) is automatically migrated to `user_settings.json` on first launch.
+
+### Git Tracked Files
+
+```
+gui_settings.json     General default settings
+README.md
+requirements.txt
+gui.py
+transcribe.py
+whisper_transcription/   Core library
+WhisperGUILauncher/      C# launcher source code
+notebooks/               Jupyter notebooks
+```
+
+### Git Ignored Files
+
+```
+user_settings.json      User-specific settings (auto-created)
+launcher_settings.json  Launcher settings (auto-created)
+.gui_settings.json      Legacy settings (migrated & deleted)
+outputs/                Transcription output
+source/                 Input media files
+__pycache__/
+*.pyc
+*.srt
+*.txt (output files)
+*.mp3 / *.mp4 / *.wav / etc.
+WhisperGUILauncher/bin/
+WhisperGUILauncher/obj/
+```
+
+### GPU PyTorch
+
+`torch` in `requirements.txt` installs the CPU version.
+For CUDA-enabled PyTorch:
+
+- **Launcher Setup**: Create the environment via "Create Conda Env", then "Install pip deps"
+- **Manual install**:
   ```bash
   conda create -n whisper-transcription python=3.11 -y
   conda activate whisper-transcription
