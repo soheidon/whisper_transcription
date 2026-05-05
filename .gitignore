@@ -1,0 +1,37 @@
+# Claude Code
+.claude/
+
+# User settings (auto-generated, contain personal paths)
+user_settings.json
+launcher_settings.json
+.gui_settings.json
+
+# Output files
+outputs/
+*.srt
+*_with_timestamp.txt
+
+# Input media
+source/
+*.mp3
+*.mp4
+*.wav
+*.m4a
+*.flac
+*.ogg
+*.avi
+*.mov
+*.mkv
+*.webm
+*.flv
+*.wmv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# C# build output
+WhisperGUILauncher/bin/
+WhisperGUILauncher/obj/

@@ -1,0 +1,5 @@
+{
+  "default_model": "small",
+  "default_device": "auto",
+  "default_language": "en"
+}
