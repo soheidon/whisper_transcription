@@ -77,7 +77,7 @@ def _save_json(path: str, data: dict):
 class TranscribeGUI:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Whisper Transcription")
+        self.root.title("WhisperGUI")
         self.root.geometry("700x560")
         self.root.resizable(True, True)
         self.root.minsize(600, 480)
@@ -535,7 +535,7 @@ def main():
             pass
 
     root = tk.Tk()
-    root.title("Whisper Transcription")
+    root.title("WhisperGUI")
 
     if os.path.isfile(ICON_PATH):
         root.iconbitmap(ICON_PATH)

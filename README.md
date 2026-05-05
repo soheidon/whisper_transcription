@@ -1,4 +1,4 @@
-# Whisper Transcription
+# WhisperGUI
 
 OpenAI Whisper を使った音声/動画ファイル文字起こし CLI／GUI ツール。
 A speech-to-text transcription tool using OpenAI Whisper with CLI and GUI.

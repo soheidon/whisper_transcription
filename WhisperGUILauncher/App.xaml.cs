@@ -13,7 +13,7 @@ public partial class App : Application
         {
             MessageBox.Show(
                 $"An unexpected error occurred:\n\n{args.Exception.Message}",
-                "Whisper GUI Launcher - Error",
+                "WhisperGUI Launcher - Error",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
             args.Handled = true;
@@ -24,7 +24,7 @@ public partial class App : Application
             var ex = args.ExceptionObject as Exception;
             MessageBox.Show(
                 $"A fatal error occurred:\n\n{ex?.Message}",
-                "Whisper GUI Launcher - Fatal Error",
+                "WhisperGUI Launcher - Fatal Error",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         };
