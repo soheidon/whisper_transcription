@@ -130,7 +130,16 @@ class TranscribeGUI:
         ttk.Label(settings, text="言語:").pack(side=tk.LEFT, padx=(0, 4))
         self.lang_var = tk.StringVar(value="en")
         lang_cb = ttk.Combobox(
-            settings, textvariable=self.lang_var, values=["auto", "ja", "en"],
+            settings, textvariable=self.lang_var,
+            values=["auto", "ja", "en", "zh", "fr",
+                    "af", "am", "ar", "as", "az", "ba", "be", "bg", "bn", "bo", "br", "bs",
+                    "ca", "cs", "cy", "da", "de", "el", "es", "et", "eu", "fa", "fi", "fo",
+                    "gl", "gu", "ha", "haw", "he", "hi", "hr", "ht", "hu", "hy", "id", "is",
+                    "it", "jw", "ka", "kk", "km", "kn", "ko", "la", "lb", "ln", "lo", "lt",
+                    "lv", "mg", "mi", "mk", "ml", "mn", "mr", "ms", "mt", "my", "ne", "nl",
+                    "nn", "no", "oc", "pa", "pl", "ps", "pt", "ro", "ru", "sa", "sd", "si",
+                    "sk", "sl", "sn", "so", "sq", "sr", "su", "sv", "sw", "ta", "te", "tg",
+                    "th", "tk", "tl", "tr", "tt", "uk", "ur", "uz", "vi", "yi", "yo", "yue"],
             state="readonly", width=6,
         )
         lang_cb.pack(side=tk.LEFT, padx=(0, 16))

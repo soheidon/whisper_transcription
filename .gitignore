@@ -11,6 +11,9 @@ outputs/
 *.srt
 *_with_timestamp.txt
 
+# Reference notebooks (not project source)
+notebooks/
+
 # Input media
 source/
 *.mp3
@@ -35,3 +38,5 @@ __pycache__/
 # C# build output
 WhisperGUILauncher/bin/
 WhisperGUILauncher/obj/
+publish/
+release/

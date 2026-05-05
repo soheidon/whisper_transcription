@@ -48,7 +48,7 @@ python transcribe.py --input audio.mp3 --language ja --model medium
 | オプション | デフォルト | 説明 |
 |---|---|---|
 | `--input`, `-i` | (自動) | 音声ファイル。省略時は `source/` 内を自動検出。ファイル名のみだと `source/` 内を検索 |
-| `--language`, `-l` | `auto` | 言語指定 (`auto`, `ja`, `en`, `zh`, `fr`, `de`, `ko`, `es`, `it`, `pt`, `ru`) |
+| `--language`, `-l` | `auto` | 言語指定（全99言語対応。`auto`=自動検出、優先: `ja` `en` `zh` `fr` + アルファベット順で95言語） |
 | `--model`, `-m` | `large` | モデルサイズ (`tiny`, `small`, `medium`, `large`) |
 | `--output-dir`, `-o` | `./outputs` | 出力ディレクトリ |
 | `--device`, `-d` | `auto` | 実行デバイス (`auto`, `cpu`, `cuda`)。auto は CUDA 優先 |
@@ -147,7 +147,6 @@ gui.py
 transcribe.py
 whisper_transcription/   コアライブラリ
 WhisperGUILauncher/      C# ランチャー ソースコード
-notebooks/               Jupyter notebooks
 ```
 
 ## Git 管理対象外
@@ -158,6 +157,7 @@ launcher_settings.json  ランチャー設定（自動作成）
 .gui_settings.json      旧設定ファイル（移行後削除）
 outputs/                文字起こし出力
 source/                 入力メディアファイル
+notebooks/              参考元コード（本プロジェクトのソースではない）
 __pycache__/
 *.pyc
 *.srt
@@ -228,7 +228,7 @@ python transcribe.py --input audio.mp3 --language ja --model medium
 | Option | Default | Description |
 |---|---|---|
 | `--input`, `-i` | (auto) | Audio file. Auto-detects in `source/` if omitted |
-| `--language`, `-l` | `auto` | Language (`auto`, `ja`, `en`, `zh`, `fr`, `de`, `ko`, `es`, `it`, `pt`, `ru`) |
+| `--language`, `-l` | `auto` | Language (99 languages supported. `auto`=detect, priority: `ja` `en` `zh` `fr` + 95 more alphabetical) |
 | `--model`, `-m` | `large` | Model size (`tiny`, `small`, `medium`, `large`) |
 | `--output-dir`, `-o` | `./outputs` | Output directory |
 | `--device`, `-d` | `auto` | Device (`auto`, `cpu`, `cuda`). auto prefers CUDA |
@@ -312,7 +312,6 @@ gui.py
 transcribe.py
 whisper_transcription/   Core library
 WhisperGUILauncher/      C# launcher source code
-notebooks/               Jupyter notebooks
 ```
 
 ### Git Ignored Files
@@ -323,6 +322,7 @@ launcher_settings.json  Launcher settings (auto-created)
 .gui_settings.json      Legacy settings (migrated & deleted)
 outputs/                Transcription output
 source/                 Input media files
+notebooks/              Reference code (not project source)
 __pycache__/
 *.pyc
 *.srt
