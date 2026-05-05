@@ -8,6 +8,7 @@ import sys
 import threading
 import tkinter as tk
 from datetime import datetime, timezone
+from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
 from whisper_transcription import WhisperTranscriber
@@ -16,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GENERAL_SETTINGS_FILE = os.path.join(BASE_DIR, "gui_settings.json")
 USER_SETTINGS_FILE = os.path.join(BASE_DIR, "user_settings.json")
 OLD_SETTINGS_FILE = os.path.join(BASE_DIR, ".gui_settings.json")
+ICON_PATH = os.path.join(BASE_DIR, "assets", "app.ico")
 
 GENERAL_DEFAULTS = {
     "default_model": "small",
@@ -523,7 +525,21 @@ class TranscribeGUI:
 
 
 def main():
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+                "SoheiIDE.WhisperTranscription.GUI"
+            )
+        except Exception:
+            pass
+
     root = tk.Tk()
+    root.title("Whisper Transcription")
+
+    if os.path.isfile(ICON_PATH):
+        root.iconbitmap(ICON_PATH)
+
     app = TranscribeGUI(root)
     root.mainloop()
 

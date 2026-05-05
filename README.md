@@ -126,6 +126,7 @@ GUI では以下が設定できます：
 - キャンセルボタンはモデルロード前後および保存処理の中止に対応しています
 - 「環境状態」ボタンで Python / Whisper / PyTorch / CUDA / FFmpeg の状態を確認可能
 - 設定は `user_settings.json` に自動保存（汎用デフォルトは `gui_settings.json`）
+- ランチャー・GUI 両方に `assets/app.ico` のアプリアイコンを表示（exe 本体 + ウィンドウ左上）
 
 ## 設定ファイル
 
@@ -147,6 +148,7 @@ gui.py
 transcribe.py
 whisper_transcription/   コアライブラリ
 WhisperGUILauncher/      C# ランチャー ソースコード
+assets/                  アプリアイコン
 ```
 
 ## Git 管理対象外
@@ -291,6 +293,7 @@ The GUI provides:
 - Cancel button (before/during model load, during save)
 - "Environment" button to check Python / Whisper / PyTorch / CUDA / FFmpeg status
 - Settings auto-saved to `user_settings.json` (general defaults in `gui_settings.json`)
+- App icon (`assets/app.ico`) shown on both launcher EXE and GUI window title bar
 
 ### Settings Files
 
@@ -312,6 +315,7 @@ gui.py
 transcribe.py
 whisper_transcription/   Core library
 WhisperGUILauncher/      C# launcher source code
+assets/                  App icon
 ```
 
 ### Git Ignored Files
